@@ -11,29 +11,33 @@
   {{ formErrors.name }}
 </div>
 <br/>
-<h3>TODO(s):</h3>
-<div class="container">
-    <div *ngFor="let todo of incompleteTodos; let i=index" class="row">
-        <div class="col-10">
-            <todo-item [item]="todo"></todo-item>
+<div *ngIf="incompleteTodos.length > 0">
+    <h3>TODO(s):</h3>
+    <div class="container">
+        <div *ngFor="let todo of incompleteTodos; let i=index" class="row">
+            <div class="col-10">
+                <todo-item [item]="todo"></todo-item>
+            </div>
+            <div class="col-2">
+                <button class="pull-right btn btn-sm btn-danger" (click)="remove(i)">Remove</button>
+            </div>
+            <br />
         </div>
-        <div class="col-2">
-            <button class="pull-right btn btn-sm btn-danger" (click)="remove(i)">Remove</button>
-        </div>
-        <br />
     </div>
 </div>
-<br/>
-<hr/>
-<h3>Complete:</h3>
-<div class="container">
-    <div *ngFor="let todo of completeTodos; let i=index" class="row">
-        <div class="col-10">
-            <todo-item [item]="todo"></todo-item>
+<div *ngIf="completeTodos.length > 0">
+    <br/>
+    <hr/>
+    <h3>Complete:</h3>
+    <div class="container">
+        <div *ngFor="let todo of completeTodos; let i=index" class="row">
+            <div class="col-10">
+                <todo-item [item]="todo"></todo-item>
+            </div>
+            <div class="col-2">
+                <button class="pull-right btn btn-sm btn-danger" (click)="remove(i)">Remove</button>
+            </div>
+            <br />
         </div>
-        <div class="col-2">
-            <button class="pull-right btn btn-sm btn-danger" (click)="remove(i)">Remove</button>
-        </div>
-        <br />
     </div>
-</div>
+<div>
