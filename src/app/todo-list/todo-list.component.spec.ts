@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TodoListComponent } from './todo-list.component';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DebugElement } from "@angular/core";
 import { By } from "@angular/platform-browser";
 
@@ -15,6 +15,7 @@ describe('TodoListComponent', () => {
   class Page {
     addTodoSpy:      jasmine.Spy;
     addBtn:      DebugElement;
+    form:    HTMLFormElement;
     newTodoInput:    HTMLInputElement;
 
     constructor(component) {
@@ -22,14 +23,18 @@ describe('TodoListComponent', () => {
     }
 
     // /** Add page elements after <TODO>? arrives */
-    addPageElements(fixture: ComponentFixture<TodoListComponent>) {
-    //   //console.log("WUT WUT WUT", this);
-    //     // have a <TODO>? so these elements are now in the DOM
+    addPageElements(fixture: ComponentFixture<TodoListComponent>) {      
         const buttons    = fixture.debugElement.queryAll(By.css('button'));
         this.addBtn     = buttons[0];
+        this.form   = fixture.debugElement.query(By.css('form')).nativeElement;        
         this.newTodoInput   = fixture.debugElement.query(By.css('input')).nativeElement;
+    }
 
-      //console.log("DONE", this);
+    inputTestTodo = () => {
+      const expectedTodo = "TEST TODO";
+      page.newTodoInput.value = expectedTodo;
+      
+      page.newTodoInput.dispatchEvent(new Event("input"));
     }
   }
 
@@ -37,6 +42,7 @@ describe('TodoListComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule  // <-- import the FormsModule before binding with [(ngModel)]
+        , ReactiveFormsModule
       ],
       declarations: [ TodoListComponent, TodoItemComponent ]
     })
@@ -59,12 +65,14 @@ describe('TodoListComponent', () => {
 
   it('should add todo to todos when addTodo called', () => {
     const expected = component.todos.length + 1;
+    page.inputTestTodo();
     component.addTodo();
     expect(component.todos.length).toBe(expected);
   });
 
   it('should have called resetAddTodo when addTodo is invoked', () => {
     spyOn(component, "resetAddTodo");
+    page.inputTestTodo();
     component.addTodo();
     expect(component.resetAddTodo).toHaveBeenCalledTimes(1);
   });
@@ -74,21 +82,10 @@ describe('TodoListComponent', () => {
   });
 
   it('should add to todo list when user inputs a value', () => {
-    const expectedTodo = "TEST TODO";
     const expected = component.todos.length + 1;
-    console.info("page", page, page.newTodoInput);
-    
-    // simulate user entering new todo into the input box
-    page.newTodoInput.value = expectedTodo;
-    console.log("page after assignment", page.newTodoInput);
 
-    // dispatch a DOM event so that Angular learns of input value change.
-    page.newTodoInput.dispatchEvent(new Event("input"));
-    console.log("page after input", page.newTodoInput.value);
+    page.inputTestTodo();
 
-    // 
-    // Tell Angular to update the output span through the pipe
-    // fixture.detectChanges();
     page.addTodoSpy();
 
     expect(component.todos.length).toBe(expected);

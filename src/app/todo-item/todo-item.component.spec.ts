@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TodoItemComponent } from './todo-item.component';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Todo } from "app/models/todo";
 
 describe('TodoItemComponent', () => {
@@ -15,9 +15,9 @@ describe('TodoItemComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule  // <-- import the FormsModule before binding with [(ngModel)]
-      ],
-      declarations: [ TodoItemComponent ]
+        FormsModule,
+      ], 
+      declarations: [ TodoItemComponent ] //, FormGroup ]
     })
     .compileComponents();
   }));

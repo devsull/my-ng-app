@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { DebugElement } from "@angular/core/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 describe('AppComponent', () => {
   const expectedTitle = 'the basic angular project';
@@ -17,7 +17,8 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule  // <-- import the FormsModule before binding with [(ngModel)]
+        FormsModule,  // <-- import the FormsModule before binding with [(ngModel)]
+        ReactiveFormsModule
       ],
       declarations: [
         AppComponent,
