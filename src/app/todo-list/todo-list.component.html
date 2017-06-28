@@ -1,0 +1,23 @@
+<form [formGroup]="newTodoForm" (ngSubmit)="addTodo()">
+    <label for="add-todo">Add Todo:</label>
+    <div class="input-group">
+        <input id="add-todo" class="form-control" type="text" formControlName="name" placeholder="Add Todo" required aria-required="true" />
+        <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit">Add</button>
+        </span>
+    </div>
+</form>
+<div *ngIf="formErrors.name" class="alert alert-danger">
+  {{ formErrors.name }}
+</div>
+<div class="container">
+    <div *ngFor="let todo of todos; let i=index" class="row">
+        <div class="col-10">
+            <todo-item [item]="todo"></todo-item>
+        </div>
+        <div class="col-2">
+            <button class="pull-right btn btn-sm btn-danger" (click)="remove(i)">Remove</button>
+        </div>
+        <br />
+    </div>
+</div>
