@@ -16,7 +16,7 @@ export class TodoListComponent implements OnInit {
 
   validationMessages = {
     'name': {
-      'required':      'Name is required.',
+      'required': 'Name is required.',
     }
   };
 
@@ -79,5 +79,13 @@ export class TodoListComponent implements OnInit {
 
   remove = (index) => {
     this.todos.splice(index, 1);
+  }
+
+  get completeTodos() {
+    return this.todos.filter(t => t.complete);
+  }
+
+  get incompleteTodos() {
+    return this.todos.filter(t => !t.complete);
   }
 }
