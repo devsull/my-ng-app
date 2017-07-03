@@ -10,32 +10,32 @@
 <div *ngIf="formErrors.name" class="alert alert-danger">
   {{ formErrors.name }}
 </div>
-<br/>
+<br />
 <div *ngIf="incompleteTodos.length > 0">
     <h3>TODO(s):</h3>
     <div class="container">
-        <div *ngFor="let todo of incompleteTodos; let i=index" class="row">
+        <div *ngFor="let todo of incompleteTodos" class="row">
             <div class="col-10">
                 <todo-item [item]="todo"></todo-item>
             </div>
             <div class="col-2">
-                <button class="pull-right btn btn-sm btn-danger" (click)="remove(i)">Remove</button>
+                <button class="pull-right btn btn-sm btn-danger" (click)="remove(todo.id)">Remove</button>
             </div>
             <br />
         </div>
     </div>
 </div>
 <div *ngIf="completeTodos.length > 0">
-    <br/>
-    <hr/>
+    <br />
+    <hr />
     <h3>Complete:</h3>
     <div class="container">
-        <div *ngFor="let todo of completeTodos; let i=index" class="row">
+        <div *ngFor="let todo of completeTodos" class="row">
             <div class="col-10">
                 <todo-item [item]="todo"></todo-item>
             </div>
             <div class="col-2">
-                <button class="pull-right btn btn-sm btn-danger" (click)="remove(i)">Remove</button>
+                <button class="pull-right btn btn-sm btn-danger" (click)="remove(todo.id)">Remove</button>
             </div>
             <br />
         </div>

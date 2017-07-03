@@ -20,7 +20,7 @@ export class TodoListComponent implements OnInit {
     }
   };
 
-  newTodo = new Todo();
+  newTodoName: string;
 
   todos = [];
 
@@ -32,7 +32,7 @@ export class TodoListComponent implements OnInit {
 
   buildTodoForm = () => {
     this.newTodoForm = this.fb.group({
-      "name": [this.newTodo.name, [Validators.required]]
+      "name": [this.newTodoName, [Validators.required]]
     });
 
     this.newTodoForm.valueChanges.subscribe(data => this.onValueChanged(data))
@@ -66,18 +66,17 @@ export class TodoListComponent implements OnInit {
 
   addTodo = () => {
     if(this.formIsValid()) {
-      this.newTodo = this.newTodoForm.value
-      this.todos.push(this.newTodo);
+      this.todos.push(new Todo(this.newTodoForm.value["name"]));
       this.resetAddTodo();
     }
   }
 
   resetAddTodo = () => {
-    this.newTodo = new Todo();
     this.newTodoForm.reset()
   }
 
-  remove = (index) => {
+  remove = (id) => {
+    const index = this.todos.findIndex(t => t.id === id);
     this.todos.splice(index, 1);
   }
 
