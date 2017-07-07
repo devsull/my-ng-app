@@ -9,7 +9,6 @@ import { By } from "@angular/platform-browser";
 describe('TodoListComponent', () => {
   let component: TodoListComponent;
   let fixture: ComponentFixture<TodoListComponent>;
-
   let page: Page;
 
   class Page {
@@ -24,10 +23,10 @@ describe('TodoListComponent', () => {
 
     // /** Add page elements after <TODO>? arrives */
     addPageElements(fixture: ComponentFixture<TodoListComponent>) {      
-        const buttons    = fixture.debugElement.queryAll(By.css('button'));
-        this.addBtn     = buttons[0];
-        this.form   = fixture.debugElement.query(By.css('form')).nativeElement;        
-        this.newTodoInput   = fixture.debugElement.query(By.css('input')).nativeElement;
+        const buttons = fixture.debugElement.queryAll(By.css('button'));
+        this.addBtn = buttons[0];
+        this.form = fixture.debugElement.query(By.css('form')).nativeElement;        
+        this.newTodoInput = fixture.debugElement.query(By.css('input')).nativeElement;
     }
 
     inputTestTodo = () => {
@@ -93,5 +92,19 @@ describe('TodoListComponent', () => {
 
   it('should fail gracefully when remove index is out of bounds', () => {
     expect(component.remove(100));
+  });
+
+  it('should remove a todo', () => {
+    const expected = component.todos.length;
+
+    page.inputTestTodo();
+    page.addTodoSpy();
+    const todoToRemove = component.todos[0];
+    const idShouldNotExist = todoToRemove.id;
+
+    component.remove(idShouldNotExist);
+
+    expect(component.todos.length).toBe(expected);
+    expect(component.todos.filter(t => t.id === idShouldNotExist).length).toBe(0);
   });
 });
