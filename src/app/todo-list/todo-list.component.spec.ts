@@ -2,40 +2,40 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TodoListComponent } from './todo-list.component';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { DebugElement } from "@angular/core";
-import { By } from "@angular/platform-browser";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
+
+class Page {
+  addTodoSpy:       jasmine.Spy;
+  addBtn:           DebugElement;
+  form:             HTMLFormElement;
+  newTodoInput:     HTMLInputElement;
+
+  constructor(component) {
+    this.addTodoSpy = spyOn(component, 'addTodo').and.callThrough();
+  }
+
+  // /** Add page elements after <TODO>? arrives */
+  addPageElements(fixture: ComponentFixture<TodoListComponent>) {
+      const buttons = fixture.debugElement.queryAll(By.css('button'));
+      this.addBtn = buttons[0];
+      this.form = fixture.debugElement.query(By.css('form')).nativeElement;
+      this.newTodoInput = fixture.debugElement.query(By.css('input')).nativeElement;
+  }
+
+  inputTestTodo = () => {
+    const expectedTodo = 'TEST TODO';
+    this.newTodoInput.value = expectedTodo;
+
+    this.newTodoInput.dispatchEvent(new Event('input'));
+  }
+}
 
 describe('TodoListComponent', () => {
   let component: TodoListComponent;
   let fixture: ComponentFixture<TodoListComponent>;
   let page: Page;
-
-  class Page {
-    addTodoSpy:      jasmine.Spy;
-    addBtn:      DebugElement;
-    form:    HTMLFormElement;
-    newTodoInput:    HTMLInputElement;
-
-    constructor(component) {
-      this.addTodoSpy = spyOn(component, 'addTodo').and.callThrough();
-    }
-
-    // /** Add page elements after <TODO>? arrives */
-    addPageElements(fixture: ComponentFixture<TodoListComponent>) {      
-        const buttons = fixture.debugElement.queryAll(By.css('button'));
-        this.addBtn = buttons[0];
-        this.form = fixture.debugElement.query(By.css('form')).nativeElement;        
-        this.newTodoInput = fixture.debugElement.query(By.css('input')).nativeElement;
-    }
-
-    inputTestTodo = () => {
-      const expectedTodo = "TEST TODO";
-      page.newTodoInput.value = expectedTodo;
-      
-      page.newTodoInput.dispatchEvent(new Event("input"));
-    }
-  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -70,7 +70,7 @@ describe('TodoListComponent', () => {
   });
 
   it('should have called resetAddTodo when addTodo is invoked', () => {
-    spyOn(component, "resetAddTodo");
+    spyOn(component, 'resetAddTodo');
     page.inputTestTodo();
     component.addTodo();
     expect(component.resetAddTodo).toHaveBeenCalledTimes(1);

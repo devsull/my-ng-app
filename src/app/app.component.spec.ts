@@ -3,8 +3,8 @@ import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
-import { DebugElement } from "@angular/core/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { DebugElement } from '@angular/core/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('AppComponent', () => {
   const expectedTitle = 'the basic angular project';
@@ -44,7 +44,7 @@ describe('AppComponent', () => {
     expect(component.title).toEqual(expectedTitle);
   }));
 
-  it('should render title in a h1 tag', async(() => {
-    expect(element.querySelector('h1').textContent).toContain(`Welcome to ${expectedTitle}!!`);
+  it('should render todo list', async(() => {
+    expect(element.querySelector('todo-list')).toBeTruthy();
   }));
 });
