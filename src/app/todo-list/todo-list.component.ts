@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { Todo } from "app/models/todo";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
-  selector: 'todo-list',
-  templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.css']
+  selector: "todo-list",
+  templateUrl: "./todo-list.component.html",
+  styleUrls: ["./todo-list.component.css"]
 })
 export class TodoListComponent implements OnInit {
   newTodoForm: FormGroup;
 
   formErrors = {
-    'name': ""
+    "name": ""
   };
 
   validationMessages = {
-    'name': {
-      'required': 'Name is required.',
+    "name": {
+      "required": "Name is required.",
     }
   };
 
@@ -26,7 +26,7 @@ export class TodoListComponent implements OnInit {
 
   constructor(private fb: FormBuilder) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.buildTodoForm();
   }
 
@@ -43,17 +43,23 @@ export class TodoListComponent implements OnInit {
   onValueChanged(data?: any) {
     if (!this.newTodoForm) { return; }
     const form = this.newTodoForm;
- 
+
     for (const field in this.formErrors) {
+      if (!this.formErrors.hasOwnProperty(field)) {
+        continue;
+      }
       // clear previous error message (if any)
       this.formErrors[field] = "";
       const control = form.get(field);
- 
+
       // data === true is to check if someone hits enter for no good reason!
       if (control && (control.dirty || data === true) && !control.valid) {
         const messages = this.validationMessages[field];
         for (const key in control.errors) {
-          this.formErrors[field] += messages[key] + ' ';
+          if (!this.formErrors.hasOwnProperty(field)) {
+            continue;
+          }
+          this.formErrors[field] += messages[key] + " ";
         }
       }
     }
@@ -65,7 +71,7 @@ export class TodoListComponent implements OnInit {
   }
 
   addTodo = () => {
-    if(this.formIsValid()) {
+    if (this.formIsValid()) {
       this.todos.push(new Todo(this.newTodoForm.value["name"]));
       this.resetAddTodo();
     }

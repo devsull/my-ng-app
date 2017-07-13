@@ -1,11 +1,11 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms'; // <-- NgModel lives here
+import { FormsModule, FormBuilder, ReactiveFormsModule } from "@angular/forms"; // <-- NgModel lives here
 
-import { AppComponent } from './app.component';
-import { TodoListComponent } from './todo-list/todo-list.component';
-import { TodoItemComponent } from './todo-item/todo-item.component';
+import { AppComponent } from "./app.component";
+import { TodoListComponent } from "./todo-list/todo-list.component";
+import { TodoItemComponent } from "./todo-item/todo-item.component";
 
 @NgModule({
   declarations: [

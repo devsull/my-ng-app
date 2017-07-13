@@ -1,13 +1,13 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from "@angular/core/testing";
 
-import { AppComponent } from './app.component';
-import { TodoListComponent } from './todo-list/todo-list.component';
-import { TodoItemComponent } from './todo-item/todo-item.component';
-import { DebugElement } from '@angular/core/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppComponent } from "./app.component";
+import { TodoListComponent } from "./todo-list/todo-list.component";
+import { TodoItemComponent } from "./todo-item/todo-item.component";
+import { DebugElement } from "@angular/core/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-describe('AppComponent', () => {
-  const expectedTitle = 'the basic angular project';
+describe("AppComponent", () => {
+  const expectedTitle = "the basic angular project";
 
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
@@ -36,7 +36,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the app', async(() => fixture.whenStable().then(() =>
+  it("should create the app", async(() => fixture.whenStable().then(() =>
     expect(component).toBeTruthy()
   )));
 
@@ -44,7 +44,7 @@ describe('AppComponent', () => {
     expect(component.title).toEqual(expectedTitle);
   }));
 
-  it('should render todo list', async(() => {
-    expect(element.querySelector('todo-list')).toBeTruthy();
+  it("should render todo list", async(() => {
+    expect(element.querySelector("todo-list")).toBeTruthy();
   }));
 });
